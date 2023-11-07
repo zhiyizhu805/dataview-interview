@@ -1,5 +1,3 @@
-# Python Starter
+# Data View Interview 
 
-Quickly get started with [Python](https://www.python.org/) using this starter! 
-
-- If you want to upgrade Python, you can change the image in the [Dockerfile](./.codesandbox/Dockerfile).
+A code sandbox to be used as part of an interview.

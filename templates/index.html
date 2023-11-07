@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Data Dashboard">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Data Dashboard</title>
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+  </head>
+  <body>
+        <div class="about">
+          <h1>Data Dashboard</h1>
+          <h2>Project:</h2><p> Interactive charts for frontend data visualization using flask and D3js</p>
+        </div>
+   
+        <div class="visualization">
+          <div id="pieChart"></div>
+          <div id="barChart"></div>
+        </div>
+        
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+        const pieChartDataUrl = "{{ url_for('get_piechart_data') }}";
+        const barChartDataUrl = "{{ url_for('get_barchart_data') }}";
+    </script>
+    <script src="{{ url_for('static', filename='js/pieChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/barChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/updateBarChart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  </body>
+</html>
