@@ -10,14 +10,18 @@
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
   </head>
   <body>
-        <div class="about">
-          <h1>Data Dashboard</h1>
-          <h2>Project:</h2><p> Interactive charts for frontend data visualization using flask and D3js</p>
+        <div class="panel">
+          <div class="about">
+            <h1>Data Dashboard</h1>
+            <h2>Project:</h2><p> Interactive charts for frontend data visualization using flask and D3js</p>
+          </div>
+          <div class="visualization">
+            <div id="pieChart"></div>  
+          </div>
         </div>
    
         <div class="visualization">
-          <div id="pieChart"></div>
-          <div id="barChart"></div>
+             <div id="barChart"></div>
         </div>
         
     <script src="https://d3js.org/d3.v5.min.js"></script>

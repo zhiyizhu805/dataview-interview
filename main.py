@@ -5,8 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Reading data
-data_df = pd.read_csv("static/data/Churn_data.csv")
-churn_df = data_df[(data_df['Churn'] == "Yes").notnull()]
+data_df = pd.read_csv("static/data/Pests.csv")
 
 
 @app.route('/')
@@ -31,40 +30,37 @@ def data_creation(data, percent, class_labels, group=None):
 
 @app.route('/get_piechart_data')
 def get_piechart_data():
-    contract_labels = ['Month-to-month', 'One year', 'Two year']
-    _ = churn_df.groupby('Contract').size().values
+    year_labels = ['2020', '2021', '2022']
+    _ = data_df.groupby('year')['count'].sum().values
     # Getting the value counts and total
     class_percent = calculate_percentage(_, np.sum(_))
 
     piechart_data = []
-    data_creation(piechart_data, class_percent, contract_labels)
+    data_creation(piechart_data, class_percent, year_labels)
     return jsonify(piechart_data)
 
 
 @app.route('/get_barchart_data')
 def get_barchart_data():
-    tenure_labels = ['0-9', '10-19', '20-29',
-                     '30-39', '40-49', '50-59', '60-69', '70-79']
-    churn_df['tenure_group'] = pd.cut(
-        churn_df.tenure, range(0, 81, 10), labels=tenure_labels)
-    select_df = churn_df[['tenure_group', 'Contract']]
-    contract_month = select_df[select_df['Contract'] == 'Month-to-month']
-    contract_one = select_df[select_df['Contract'] == 'One year']
-    contract_two = select_df[select_df['Contract'] == 'Two year']
-    _ = contract_month.groupby('tenure_group', observed=False).size().values
-    mon_percent = calculate_percentage(_, np.sum(_))
-    _ = contract_one.groupby('tenure_group', observed=False).size().values
-    one_percent = calculate_percentage(_, np.sum(_))
-    _ = contract_two.groupby('tenure_group', observed=False).size().values
-    two_percent = calculate_percentage(_, np.sum(_))
-    _ = select_df.groupby('tenure_group', observed=False).size().values
+    pest_labels = ['Bird', 'Cat', 'Ferret', 'Hedgehog', 'Magpie', 'Mouse', 'Other', 'Possum',
+                   'Rabbit', 'Rat', 'Rat - ship', 'Rat - norway', 'Stoat', 'Unspecified', 'Weasel', 'PÅ«keko']
+    year_2020 = data_df[data_df['year'] == 2020]
+    year_2021 = data_df[data_df['year'] == 2021]
+    year_2022 = data_df[data_df['year'] == 2022]
+    _ = year_2020.groupby('Type', observed=False)['count'].sum().values
+    y2020_percent = calculate_percentage(_, np.sum(_))
+    _ = year_2021.groupby('Type', observed=False)['count'].sum().values
+    y2021_percent = calculate_percentage(_, np.sum(_))
+    _ = year_2022.groupby('Type', observed=False)['count'].sum().values
+    y2022_percent = calculate_percentage(_, np.sum(_))
+    _ = data_df.groupby('Type', observed=False)['count'].sum().values
     all_percent = calculate_percentage(_, np.sum(_))
 
     barchart_data = []
-    data_creation(barchart_data, all_percent, tenure_labels, "All")
-    data_creation(barchart_data, mon_percent, tenure_labels, "Month-to-month")
-    data_creation(barchart_data, one_percent, tenure_labels, "One year")
-    data_creation(barchart_data, two_percent, tenure_labels, "Two year")
+    data_creation(barchart_data, all_percent, pest_labels, "All")
+    data_creation(barchart_data, y2020_percent, pest_labels, "2020")
+    data_creation(barchart_data, y2021_percent, pest_labels, "2021")
+    data_creation(barchart_data, y2022_percent, pest_labels, "2022")
     return jsonify(barchart_data)
 
 
