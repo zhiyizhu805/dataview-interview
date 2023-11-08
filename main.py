@@ -61,6 +61,8 @@ def get_barchart_data():
     data_creation(barchart_data, y2020_percent, pest_labels, "2020")
     data_creation(barchart_data, y2021_percent, pest_labels, "2021")
     data_creation(barchart_data, y2022_percent, pest_labels, "2022")
+    # print('barchart_data', barchart_data)
+    # print('jonsonify', jsonify(barchart_data))
     return jsonify(barchart_data)
 
 

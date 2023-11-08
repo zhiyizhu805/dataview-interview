@@ -13,9 +13,11 @@ function get_percentage(group, datasetBarChart) {
   const _ = [];
   for (instance in datasetBarChart) {
     if (datasetBarChart[instance].group == group) {
+      // console.log("datasetBarChart[instance]", datasetBarChart[instance]);
       _.push(datasetBarChart[instance]);
     }
   }
+  // console.log("get_percentage", _);//16 in result
   return _;
 }
 
@@ -58,7 +60,7 @@ function d3BarChart(datasetBarChart) {
     .append("g")
     .attr(
       "transform",
-      "translate(" + margin.left + "," + (margin.top + graph_misc.ylabel) + ")",
+      "translate(" + margin.left + "," + (margin.top + graph_misc.ylabel) + ")"
     );
 
   //Selecting all the bar serving as bins of data
@@ -109,7 +111,7 @@ function d3BarChart(datasetBarChart) {
         margin.left +
         "," +
         (margin.top + height + graph_misc.xlabelH) +
-        ")",
+        ")"
     );
 
   xLabels
